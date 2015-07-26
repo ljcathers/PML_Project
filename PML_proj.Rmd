@@ -1,0 +1,58 @@
+---
+title: "Prediction for Quality of Activity"
+author: "ljc"
+date: "July 25, 2015"
+output: html_document
+---
+
+Background
+
+Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the website here: http://groupware.les.inf.puc-rio.br/har (see the section on the Weight Lifting Exercise Dataset). 
+
+
+###Data 
+
+The training data for this project are available here: 
+https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
+
+The test data are available here: 
+https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
+
+Data source: http://groupware.les.inf.puc-rio.br/har
+
+```{r}
+setwd("~/Documents/Coursera_Data_Science/08_PML")
+#download.file(https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv, "pml-training.zip", method="curl")
+#unzip("./pml-training.zip")
+trng_data<- read.csv("./pml-training.csv")
+#download.file(https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv, "pml-testing.zip", method="curl")
+#unzip("pml-testing.zip")
+test_data<- read.csv("./pml-testing.csv")
+
+dim(trng_data)
+#head(trng_data)
+
+dim(test_data)
+#head(test_data)
+
+```
+
+###Preprocess Data
+Split data into Training and Test datasets
+```{r}
+library(caret)
+library(kernlab)
+inTrain <- createDataPartition(y=trng_data$classe, p=0.75, list=FALSE)
+training <- trng_data[inTrain,]
+testing <- trng_data[-inTrain,]
+dim(training)
+dim(testing)
+```
+
+###Analysis
+Fit a model
+```{r}
+#set.seed(12345)
+#modelFit <- train(classe ~.,data=training, method="rpart")
+#modelFit
+```
